@@ -16,15 +16,25 @@ export default function Register() {
     };
 
     const handleFieldChange =(event) => {
+        // console.log(event);      //has "target" of the image
+        // console.log(event.target.files);   //info to send to backend
         formik.setFieldValue('image',event.target.files[0])
     }
    const  onSubmit = async users=>{
-        const formData =new FormData();
+        const formData =new FormData();    // empty object
+
         formData.append("userName", users.userName);
         formData.append("email", users.email);
         formData.append("password", users.password);
         formData.append("image", users.image);
 
+         // console.log(formData);
+        
+        // for(let data of formData.entries()){
+        //     console.log(data);
+        // }
+
+        
         const {data} = await axios.post(`https://ecommerce-node4.vercel.app/auth/signup`,formData)
         console.log(data);
         if(data.message=='success'){
@@ -52,7 +62,7 @@ export default function Register() {
         {
             id: 'usernames',
             type: 'text',
-            name: 'userName',
+            name: 'userName',   // i get the name from backend
             title: 'user name',
             value: formik.values.userName,
         },
